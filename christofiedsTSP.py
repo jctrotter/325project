@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import sys
-
+import math
 
 class InputGraph:
 
     def __init__(self):
         self.cityN = []
+        self.cityDistances = []
         self.xCoord = []
         self.yCoord = []
         self.testFileName = None
@@ -15,22 +16,37 @@ class InputGraph:
 def processInput(graphInput):
     testFileName = sys.argv[1]
     graphInput.testFileName = testFileName          #Save fileName for output file
-    print("This is test file: " + testFileName)
+    #print("This is test file: " + testFileName)
 
     #Loop through file. " " - cityN - cityX -cityY
     with open(testFileName) as inputFile:
-        i = 0
         for line in inputFile:
             readIn = line.strip().split()
-            cityVertex = readIn[0]
-            cityX = readIn[1]
-            cityY = readIn[2]
-            print("CityN--" + str(cityVertex) + "--xCoord--" + str(cityX) + "--yCoord--" + str(cityY))
+            cityVertex = int(readIn[0])
+            cityX = int(readIn[1])
+            cityY = int(readIn[2])
+            #print("CityN--" + str(cityVertex) + "--xCoord--" + str(cityX) + "--yCoord--" + str(cityY))
             graphInput.cityN.append(cityVertex)
             graphInput.xCoord.append(cityX)
             graphInput.yCoord.append(cityY)
-            print(readIn)
-            i += 1
+            #print(readIn)
+def euclidCalc(graphInput):
+    vertexCnt = len(graphInput.cityN)
+    #print("Amount of vertices: " + str(vertexCnt))
+    for u in range(vertexCnt):
+
+        for v in range(vertexCnt):
+            xVal1 = graphInput.xCoord[u]
+            yVal1 = graphInput.yCoord[u]
+
+            xVal2 = graphInput.xCoord[v]
+            yVal2 = graphInput.yCoord[v]
+
+            #Calculate distance
+            distance = round(math.sqrt((xVal1-xVal2)**2 + (yVal1-yVal2)**2))
+            #print("(x1,y1)<->(x2,y2): " + "("+ str(xVal1)+ ","+str(yVal1)+")"+ "("+ str(xVal2)+ ","+str(yVal2)+")"" distance: " + str(distance))
+            #Put distance in distance 2D array
+            #graphInput.cityDistances[u][v] = distance   
 
 def formatOutput():
     return None
@@ -40,7 +56,7 @@ def main():
     processInput(tspGraph)
     
     #Calculate distance between all city Vertices
-
+    euclidCalc(tspGraph)
     #create MST
     #
 
