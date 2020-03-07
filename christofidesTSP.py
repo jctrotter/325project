@@ -72,8 +72,19 @@ def formatOutput(output):
     return None
 
 
-def generateMST(G):
-    christofidesMST(G) # from mstEuclid.py
+def generateMST(inputG):
+    # convert InputGraph from christofidesTSP to graph
+    points = []
+    for n in range(0, len(inputG.xCoord)):
+        points.append([inputG.xCoord[n], inputG.yCoord[n]])
+    tempGraph = graph(len(inputG.cityN), points)
+
+    # run
+    Kruskal(tempGraph)
+
+    # return values
+    inputG.mst = tempGraph.mst
+    inputG.mst_distance = tempGraph.mst_distance
 
 def main():
     tspGraph = InputGraph()                         #Instantiate InputGraph

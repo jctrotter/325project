@@ -1,5 +1,4 @@
 import math
-from christofidesTSP import *
 from operator import itemgetter
 
     
@@ -85,7 +84,7 @@ def Kruskal(graph):
     graph.mst = A
     graph.mst_distance = running_w
 
-#driver
+# driver
 def debugDriver():
     fp = open("graph.txt") #TODO VALIDATE
     line = int(fp.readline())
@@ -102,17 +101,3 @@ def debugDriver():
     graph = graph(n,points)
     Kruskal(graph)
 
-
-def christofidesMST(inputG):
-    # convert InputGraph from christofidesTSP to graph
-    points = []
-    for n in range(0, len(inputG.xCoord)):
-        points.append([inputG.xCoord[n], inputG.yCoord[n]])
-    tempGraph = graph(len(inputG.cityN), points)
-
-    # run
-    Kruskal(tempGraph)
-
-    # return values
-    inputG.mst = tempGraph.mst
-    inputG.mst_distance = tempGraph.mst_distance
