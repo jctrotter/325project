@@ -6,7 +6,7 @@ class InputGraph:
 
     def __init__(self):
         self.cityN = []
-        self.cityDistances = []
+        self.cityDistances = [[0 for x in range(5000)] for y in range(5000)]
         self.xCoord = []
         self.yCoord = []
         self.testFileName = None
@@ -46,9 +46,14 @@ def euclidCalc(graphInput):
             distance = round(math.sqrt((xVal1-xVal2)**2 + (yVal1-yVal2)**2))
             #print("(x1,y1)<->(x2,y2): " + "("+ str(xVal1)+ ","+str(yVal1)+")"+ "("+ str(xVal2)+ ","+str(yVal2)+")"" distance: " + str(distance))
             #Put distance in distance 2D array
-            #graphInput.cityDistances[u][v] = distance   
+            graphInput.cityDistances[u][v] = distance   
 
-def formatOutput():
+def formatOutput(output):
+    outputFileName = output.testFileName + ".tour"
+    #print(outputFileName)
+    #First line length of tour
+    #n lines city idetifiers in order visited by tour
+
     return None
 
 def main():
@@ -58,7 +63,9 @@ def main():
     #Calculate distance between all city Vertices
     euclidCalc(tspGraph)
     #create MST
-    #
+    
+    #Format output
+    formatOutput(tspGraph)
 
 if __name__ == "__main__":
     main()
