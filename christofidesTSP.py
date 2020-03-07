@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import sys
 import math
+from mstEuclid import *
 
 class InputGraph:
 
@@ -11,10 +12,21 @@ class InputGraph:
         self.yCoord = []
         self.testFileName = None
 
+        self.mst = []
+        # - MST FORMAT -
+        # list of [u, v, w]
+        # u: start node n at xCoord[u] and yCoord[u]
+        # v: end node v at xCoord[v] and yCoord[v]
+        # w: weight of edge
+        # sorted using Kruskals, in order of ascending path weight.
+        self.mst_distance = 0
+
+
 
 #Takes in cli test input.
 def processInput(graphInput):
-    testFileName = sys.argv[1]
+    #testFileName = sys.argv[1]
+    testFileName = "test-input-1.txt"
     graphInput.testFileName = testFileName          #Save fileName for output file
     #print("This is test file: " + testFileName)
 
@@ -30,6 +42,8 @@ def processInput(graphInput):
             graphInput.xCoord.append(cityX)
             graphInput.yCoord.append(cityY)
             #print(readIn)
+
+
 def euclidCalc(graphInput):
     vertexCnt = len(graphInput.cityN)
     #print("Amount of vertices: " + str(vertexCnt))
@@ -48,6 +62,7 @@ def euclidCalc(graphInput):
             #Put distance in distance 2D array
             graphInput.cityDistances[u][v] = distance   
 
+
 def formatOutput(output):
     outputFileName = output.testFileName + ".tour"
     #print(outputFileName)
@@ -56,6 +71,10 @@ def formatOutput(output):
 
     return None
 
+
+def generateMST(G):
+    christofidesMST(G) # from mstEuclid.py
+
 def main():
     tspGraph = InputGraph()                         #Instantiate InputGraph
     processInput(tspGraph)
@@ -63,7 +82,7 @@ def main():
     #Calculate distance between all city Vertices
     euclidCalc(tspGraph)
     #create MST
-    
+    generateMST(tspGraph)
     #Format output
     formatOutput(tspGraph)
 
