@@ -22,12 +22,12 @@ class InputGraph:
         # sorted using Kruskals, in order of ascending path weight.
         self.mst_distance = 0
 
-        self.subgraph = []
-        # - SubGraph FORMAT -
-        # list of [u, v, w]
-        # u: start node n at xCoord[u] and yCoord[u]
-        # v: end node v at xCoord[v] and yCoord[v]
-        # w: weight of edge
+        # self.subgraph = []
+        # # - SubGraph FORMAT -
+        # # list of [u, v, w]
+        # # u: start node n at xCoord[u] and yCoord[u]
+        # # v: end node v at xCoord[v] and yCoord[v]
+        # # w: weight of edge
 
         self.minPerfectMatch = []
 
@@ -105,12 +105,13 @@ def main():
     generateMST(tspGraph)
 
     # Calculate set of vertices O with odd degree in T;
-    # Form the subgraph of G using only the vertices of O;
-    generateSubgraph(tspGraph)
+    O = generateOddVertices(tspGraph)
     # print(tspGraph.subgraph)
+    # print(tspGraph.mst)
 
     # Construct a minimum-weight perfect matching M in this subgraph.
-    generateMinPerfectMatch(tspGraph)
+    generateMinPerfectMatch(tspGraph, O)
+    print(tspGraph.mst)
 
     #Format output
     formatOutput(tspGraph)

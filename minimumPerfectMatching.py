@@ -27,7 +27,7 @@ class subgraph:
         self.graph = edges
 
 
-def generateSubgraph(G):
+def generateOddVertices(G):
 
     # get degrees of each node in the MST
     nodeDegrees = dict()
@@ -54,9 +54,21 @@ def generateSubgraph(G):
     for node in nodeDegrees.keys():
         if nodeDegrees[node] % 2 == 1:
             O.append(node)
+    
+    return O
 
-    #build subgraph
-    G.subgraph = subgraph(len(O), O, G).graph
-
-def generateMinPerfectMatch(G):
-    print("hello")
+def generateMinPerfectMatch(G, O):
+    # find the minimum across all edges
+    while O:
+        v = O.pop()
+        length = float("inf")
+        u = 1
+        closest = 0
+        for u in O:
+            if v != u and G.cityDistances[v][u] < length:
+                length = float(G.cityDistances[v][u])
+                closest = u
+        
+        G.mst.append([v, closest, length])
+        O.remove(closest)
+        
