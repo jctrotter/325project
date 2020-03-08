@@ -2,6 +2,7 @@
 import sys
 import math
 from mstEuclid import *
+from minimumPerfectMatching import *
 
 class InputGraph:
 
@@ -21,6 +22,14 @@ class InputGraph:
         # sorted using Kruskals, in order of ascending path weight.
         self.mst_distance = 0
 
+        self.subgraph = []
+        # - SubGraph FORMAT -
+        # list of [u, v, w]
+        # u: start node n at xCoord[u] and yCoord[u]
+        # v: end node v at xCoord[v] and yCoord[v]
+        # w: weight of edge
+
+        self.minPerfectMatch = []
 
 
 #Takes in cli test input.
@@ -94,6 +103,15 @@ def main():
     euclidCalc(tspGraph)
     #create MST
     generateMST(tspGraph)
+
+    # Calculate set of vertices O with odd degree in T;
+    # Form the subgraph of G using only the vertices of O;
+    generateSubgraph(tspGraph)
+    # print(tspGraph.subgraph)
+
+    # Construct a minimum-weight perfect matching M in this subgraph.
+    generateMinPerfectMatch(tspGraph)
+
     #Format output
     formatOutput(tspGraph)
 
