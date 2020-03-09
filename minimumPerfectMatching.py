@@ -37,7 +37,6 @@ def generateMinPerfectMatch(G, O):
     while O:
         v = O.pop()
         length = float("inf")
-        u = 1
         closest = 0
         for u in O:
             if v != u and G.cityDistances[v][u] < length:
