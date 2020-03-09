@@ -3,7 +3,7 @@ import sys
 import math
 from mstEuclid import *
 from minimumPerfectMatching import *
-
+from eulerPath import *
 class InputGraph:
 
     def __init__(self):
@@ -23,6 +23,7 @@ class InputGraph:
         self.mst_distance = 0
 
         self.euler = []
+        self.euler_tour = []
 
 
 #Takes in cli test input.
@@ -88,6 +89,14 @@ def generateMST(inputG):
     inputG.mst = tempGraph.mst
     inputG.mst_distance = tempGraph.mst_distance
 
+
+def generateEulerTour(inputG):
+    G = eulerGraph(len(inputG.euler))
+    for node in inputG.euler:
+       addEdge(G, node[0], node[1])
+    Fleury(G)
+    print('here')
+
 def main():
     tspGraph = InputGraph()                         #Instantiate InputGraph
     processInput(tspGraph)
@@ -104,8 +113,10 @@ def main():
 
     # Construct a minimum-weight perfect matching M in this subgraph.
     generateMinPerfectMatch(tspGraph, O)
-    print(tspGraph.euler)
+    
 
+    # Create a euler tour using Fleury's algorithm
+    generateEulerTour(tspGraph)
     #Format output
     formatOutput(tspGraph)
 
