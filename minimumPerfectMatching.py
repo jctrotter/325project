@@ -69,6 +69,8 @@ def generateMinPerfectMatch(G, O):
                 length = float(G.cityDistances[v][u])
                 closest = u
         
-        G.mst.append([v, closest, length])
+        if not [v, closest, length] in G.mst and not [closest, v, length] in G.mst:
+            G.mst.append([v, closest, length])
         O.remove(closest)
+
         
