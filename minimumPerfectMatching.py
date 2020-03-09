@@ -33,6 +33,8 @@ def generateOddVertices(G):
     return O
 
 def generateMinPerfectMatch(G, O):
+    G.euler = G.mst.copy()
+    
     # find the minimum across all edges
     while O:
         v = O.pop()
@@ -44,7 +46,7 @@ def generateMinPerfectMatch(G, O):
                 closest = u
         
         if not [v, closest, length] in G.mst and not [closest, v, length] in G.mst:
-            G.mst.append([v, closest, length])
+            G.euler.append([v, closest, length])
         O.remove(closest)
     
     
